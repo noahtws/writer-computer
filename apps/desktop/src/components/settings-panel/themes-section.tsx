@@ -36,7 +36,7 @@ function ThemeCard({ mode }: { mode: ThemeMode }) {
   const primaryDefs = useMemo(() => getPrimaryDefs(mode), [mode]);
   const primaries = useMemo(() => readPrimaries(mode, settings), [mode, settings]);
   const storedPresetRaw = settings[presetKey(mode)];
-  const storedPreset = typeof storedPresetRaw === "string" ? storedPresetRaw : "Codex";
+  const storedPreset = typeof storedPresetRaw === "string" ? storedPresetRaw : PRESET_NAMES[0];
   const activePreset = useMemo<PresetName | "custom">(() => {
     for (const name of PRESET_NAMES) {
       if (matchesPreset(primaries, name, mode)) return name;

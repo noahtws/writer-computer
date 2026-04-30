@@ -69,7 +69,7 @@
       "category": "Theme",
       "$comment": "Valid values are populated at runtime from shared/themes/*.json plus the special \"custom\" sentinel; we intentionally don't enum-constrain the contract so adding a preset doesn't require a schema edit.",
       "type": "string",
-      "default": "Codex"
+      "default": "Writer"
     },
     {
       "key": "theme.light.accent",
@@ -105,7 +105,7 @@
       "category": "Theme",
       "type": "string",
       "cssVar": "--ui-font",
-      "default": "Geist, Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif"
+      "default": "-apple-system-body, ui-sans-serif, -apple-system, system-ui, \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\""
     },
     {
       "key": "theme.light.editor-font",
@@ -114,7 +114,7 @@
       "category": "Theme",
       "type": "string",
       "cssVar": "--editor-font",
-      "default": "Geist, Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif"
+      "default": "-apple-system-body, ui-sans-serif, -apple-system, system-ui, \"Segoe UI\", Helvetica, \"Apple Color Emoji\", Arial, sans-serif, \"Segoe UI Emoji\", \"Segoe UI Symbol\""
     },
     {
       "key": "theme.light.translucent",
@@ -145,7 +145,7 @@
       "category": "Theme",
       "$comment": "Valid values are populated at runtime from shared/themes/*.json plus the special \"custom\" sentinel; we intentionally don't enum-constrain the contract so adding a preset doesn't require a schema edit.",
       "type": "string",
-      "default": "Codex"
+      "default": "Writer"
     },
     {
       "key": "theme.dark.accent",
