@@ -2,6 +2,7 @@
 
 ## 2026-04-30
 
+- Fix the tab chrome snapping when toggling the sidebar. The tabs now render from the app layout as a root-level overlay whose left edge transitions between the expanded sidebar edge and the collapsed safe inset, instead of switching sidebar-dependent padding inside the moving editor area. See `SPECs/sidebar-toggle-tab-chrome-shift-spec.md`.
 - Rename the bundled Codex theme preset to Writer. The preset values are unchanged; only the default preset label and bundled theme folder changed.
 - Prepare the repository for a fresh private GitHub repo: remove internal triage artifacts and screenshots, replace starter READMEs with Writer-specific docs, and point release/updater metadata at `joelbqz/writer-computer`.
 

@@ -78,7 +78,7 @@
       "category": "Theme",
       "type": "color",
       "cssVar": "--accent",
-      "default": "#0169CC"
+      "default": "#0061FF"
     },
     {
       "key": "theme.light.background",
@@ -125,18 +125,18 @@
       "min": 0,
       "max": 100,
       "step": 1,
-      "default": 0
+      "default": 10
     },
     {
       "key": "theme.light.contrast",
       "label": "Contrast",
-      "description": "Light theme contrast: alpha multiplier on borders, cards, hover bgs.",
+      "description": "alpha multiplier on borders, cards, hover bgs.",
       "category": "Theme",
       "type": "range",
       "min": 0,
-      "max": 200,
+      "max": 100,
       "step": 1,
-      "default": 40
+      "default": 20
     },
     {
       "key": "theme.dark.preset",
@@ -154,7 +154,7 @@
       "category": "Theme",
       "type": "color",
       "cssVar": "--accent",
-      "default": "#0169CC"
+      "default": "#FF6A00"
     },
     {
       "key": "theme.dark.background",
@@ -201,18 +201,18 @@
       "min": 0,
       "max": 100,
       "step": 1,
-      "default": 30
+      "default": 20
     },
     {
       "key": "theme.dark.contrast",
       "label": "Contrast",
-      "description": "Dark theme contrast: alpha multiplier on borders, cards, hover bgs.",
+      "description": "alpha multiplier on borders, cards, hover bgs.",
       "category": "Theme",
       "type": "range",
       "min": 0,
-      "max": 200,
+      "max": 100,
       "step": 1,
-      "default": 50
+      "default": 16
     },
     {
       "key": "files.associations",
