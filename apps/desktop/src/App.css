@@ -88,6 +88,7 @@
   --blockquote-border: color-mix(in srgb, var(--fg-base) calc(var(--contrast) * 58%), transparent);
 
   --link-color: var(--accent);
+  --editor-selection-bg: color-mix(in srgb, var(--accent) 30%, transparent);
 
   /* Select chevron uses fg-base via color-mix in fill — but SVG `stroke` can't
      consume CSS vars, so we recreate via stroke= with currentColor and apply

@@ -35,6 +35,16 @@
   border-left-color: var(--text-primary);
 }
 
+/* Selection — dimmed accent. CodeMirror's drawSelection extension paints
+   `.cm-selectionBackground` rectangles; the native `::selection` is the
+   fallback for text the drawn layer doesn't cover. Override both, and bump
+   specificity past CM's base theme on the focused-state selector. */
+.cm-editor .cm-selectionBackground,
+.cm-editor.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground,
+.cm-editor .cm-content ::selection {
+  background-color: var(--editor-selection-bg);
+}
+
 /* Editor layout — let parent handle scrolling */
 .cm-editor {
   height: auto;

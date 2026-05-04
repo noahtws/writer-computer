@@ -2,6 +2,7 @@
 
 ## 2026-05-03
 
+- Style the editor's selected-text highlight with a dimmed accent color instead of the browser default. Adds a derived `--editor-selection-bg: color-mix(in srgb, var(--accent) 30%, transparent)` token in `App.css` and applies it to `.cm-selectionBackground` (both focused and unfocused) plus `.cm-content ::selection` as a fallback for the native browser highlight.
 - Fix the caret rendering offset after using back/forward navigation between files by avoiding transition-scheduled history swaps and using CodeMirror's measured cursor drawing.
 - Fix the editor caret rendering as a black bar in dark mode by overriding `@codemirror/view`'s default `border-left: solid black` on `.cm-cursor` with the theme's `--text-primary` token at higher specificity.
 - Remove the scale "pop" animation that played when toggling a task checkbox.
