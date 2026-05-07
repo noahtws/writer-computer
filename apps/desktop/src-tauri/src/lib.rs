@@ -25,9 +25,9 @@ use tauri::RunEvent;
 use tauri::{DragDropEvent, Emitter, Manager, WebviewWindow, WindowEvent};
 
 #[cfg(target_os = "macos")]
-const CLI_MENU_INSTALL_LABEL: &str = "Shell Command: Install 'writer' Command in PATH";
+const CLI_MENU_INSTALL_LABEL: &str = "Install 'writer' Command Line Tool…";
 #[cfg(target_os = "macos")]
-const CLI_MENU_UNINSTALL_LABEL: &str = "Shell Command: Uninstall 'writer' Command in PATH";
+const CLI_MENU_UNINSTALL_LABEL: &str = "Uninstall 'writer' Command Line Tool…";
 
 #[cfg(target_os = "macos")]
 struct CliMenuItem(MenuItem<tauri::Wry>);
@@ -156,6 +156,10 @@ fn install_app_menu(
 ) -> Result<(), Box<dyn std::error::Error>> {
     let check_item = MenuItemBuilder::with_id("updater.check", "Check for Updates…").build(app)?;
 
+    let preferences_item = MenuItemBuilder::with_id("preferences.open", "Preferences…")
+        .accelerator("CmdOrCtrl+,")
+        .build(app)?;
+
     #[cfg(target_os = "macos")]
     let cli_item = MenuItemBuilder::with_id("cli.toggle", CLI_MENU_INSTALL_LABEL).build(app)?;
 
@@ -163,9 +167,11 @@ fn install_app_menu(
         let b = SubmenuBuilder::new(app, "Writer")
             .item(&PredefinedMenuItem::about(app, Some("About Writer"), None)?)
             .separator()
-            .item(&check_item);
+            .item(&check_item)
+            .separator()
+            .item(&preferences_item);
         #[cfg(target_os = "macos")]
-        let b = b.separator().item(&cli_item);
+        let b = b.item(&cli_item);
         b.separator()
             .item(&PredefinedMenuItem::services(app, None)?)
             .separator()
@@ -212,12 +218,37 @@ fn install_app_menu(
 
     app.on_menu_event(|app, event| match event.id().0.as_str() {
         "updater.check" => updater::start_check(app.clone(), true),
+        "preferences.open" => emit_to_focused_window(app, "menu:open-preferences"),
         #[cfg(target_os = "macos")]
         "cli.toggle" => run_cli_toggle(app.clone()),
         _ => {}
     });
 
     Ok(())
+}
+
+/// Send an event to whichever webview window currently has focus, scoped to
+/// that window so other windows don't react. The native menu handler runs on
+/// the `AppHandle` and isn't tied to a window, so we resolve the target here.
+///
+/// Fallback order if no window reports focus (focus race, platform error
+/// from `is_focused`): the main window if visible, else any visible window.
+/// `webview_windows()` returns a `HashMap` whose iteration order is
+/// non-deterministic, so the explicit main-window preference matters.
+fn emit_to_focused_window(app: &tauri::AppHandle, event: &str) {
+    let windows = app.webview_windows();
+    let target = windows
+        .values()
+        .find(|w| w.is_focused().unwrap_or(false))
+        .or_else(|| {
+            windows
+                .get(MAIN_WINDOW_LABEL)
+                .filter(|w| w.is_visible().unwrap_or(false))
+        })
+        .or_else(|| windows.values().find(|w| w.is_visible().unwrap_or(false)));
+    if let Some(window) = target {
+        let _ = app.emit_to(window.label(), event, ());
+    }
 }
 
 #[cfg(target_os = "macos")]
